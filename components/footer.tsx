@@ -6,20 +6,6 @@ export function Footer() {
   return (
     <footer className="bg-primary text-primary-foreground py-12">
       <div className="container mx-auto px-6">
-        {/* Newsletter Signup */}
-        <div className="max-w-md mx-auto mb-12 text-center">
-          <h3 className="text-xl font-semibold mb-4">Stay Updated</h3>
-          <div className="flex gap-2">
-            <Input
-              type="email"
-              placeholder="Enter your email"
-              className="bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground placeholder:text-primary-foreground/60"
-            />
-            <Button variant="secondary" className="bg-accent hover:bg-accent/90 text-accent-foreground">
-              Sign Up
-            </Button>
-          </div>
-        </div>
 
         {/* Social Links */}
         <div className="flex justify-center gap-6 mb-8">
@@ -34,9 +20,6 @@ export function Footer() {
           </a>
           <a href="mailto:hoyataxa@georgetown.edu" className="hover:text-accent transition-colors" aria-label="Email">
             <Mail className="h-6 w-6" />
-          </a>
-          <a href="#home" className="hover:text-accent transition-colors" aria-label="Back to top">
-            <ArrowUp className="h-6 w-6" />
           </a>
         </div>
 
