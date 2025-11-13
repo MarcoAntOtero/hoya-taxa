@@ -11,11 +11,36 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 
 export function Contact() {
   const [submitted, setSubmitted] = useState(false)
+  const [loading, setLoading] = useState(false)
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    setSubmitted(true)
-    setTimeout(() => setSubmitted(false), 5000)
+    setLoading(true)
+
+    const form = e.currentTarget
+    const data = new FormData(form)
+
+    try {
+      const response = await fetch("https://formspree.io/f/mjkjkvqo", {
+        method: "POST",
+        body: data,
+        headers: {
+          Accept: "application/json",
+        },
+      })
+
+      if (response.ok) {
+        setSubmitted(true) //so they can't spam messages
+        form.reset()
+      } else {
+        alert("Something went wrong. Please try again later.")
+      }
+    } catch (error) {
+      console.error(error)
+      alert("Error sending message.")
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -36,22 +61,22 @@ export function Contact() {
             <div className="grid md:grid-cols-2 gap-6">
               <div className="space-y-2">
                 <Label htmlFor="firstName">First Name *</Label>
-                <Input id="firstName" required placeholder="John" />
+                <Input id="firstName" name="firstName" required placeholder="John" />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="lastName">Last Name *</Label>
-                <Input id="lastName" required placeholder="Doe" />
+                <Input id="lastName" name="lastName" required placeholder="Doe" />
               </div>
             </div>
 
             <div className="space-y-2">
               <Label htmlFor="email">Email Address *</Label>
-              <Input id="email" type="email" required placeholder="john.doe@example.com" />
+              <Input id="email" name="email" type="email" required placeholder="john.doe@example.com" />
             </div>
 
             <div className="space-y-2">
               <Label htmlFor="topic">I'm contacting about... *</Label>
-              <Select required>
+              <Select name="topic" required>
                 <SelectTrigger id="topic">
                   <SelectValue placeholder="Select a topic" />
                 </SelectTrigger>
@@ -65,15 +90,16 @@ export function Contact() {
 
             <div className="space-y-2">
               <Label htmlFor="message">Message *</Label>
-              <Textarea id="message" required placeholder="Tell us more about your inquiry..." rows={6} />
+              <Textarea id="message" name="message" required placeholder="Tell us more about your inquiry..." rows={6} />
             </div>
 
             <Button
               type="submit"
               size="lg"
+              disabled={loading}
               className="w-full bg-primary hover:bg-primary/90 text-primary-foreground text-lg py-6 rounded-xl"
             >
-              Send Message
+              {loading ? "Sending..." : "Send Message"}
             </Button>
           </form>
         )}

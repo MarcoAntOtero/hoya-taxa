@@ -16,7 +16,7 @@ export default function TeamPage() {
     },
     {
       name: "Emilio",
-      role: "Tresurer",
+      role: "Treasurer",
       image: "/emilio.jpeg",
     },
     {
