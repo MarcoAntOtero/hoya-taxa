@@ -32,7 +32,7 @@ export function Footer() {
           >
             <Instagram className="h-6 w-6" />
           </a>
-          <a href="mailto:contact@hoyataxa.org" className="hover:text-accent transition-colors" aria-label="Email">
+          <a href="mailto:hoyataxa@georgetown.edu" className="hover:text-accent transition-colors" aria-label="Email">
             <Mail className="h-6 w-6" />
           </a>
           <a href="#home" className="hover:text-accent transition-colors" aria-label="Back to top">
